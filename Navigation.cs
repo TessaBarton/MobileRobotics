@@ -411,12 +411,12 @@ namespace DrRobot.JaguarControl
             // update last encoder measurements
             lastEncoderPulseR = currentEncoderPulseR;
             lastEncoderPulseL = currentEncoderPulseL;
-            //calculate wheel distances
+            //calculate distance traveled by wheels
             double angleTraveledR = diffEncoderPulseR * ((2 * Math.PI) / 190);
             double angleTraveledL = diffEncoderPulseL * ((2 * Math.PI) / 190);
             wheelDistanceR = wheelRadius * angleTraveledR;
             wheelDistanceL = wheelRadius * angleTraveledL;
-            // calculate angle and distance traveled
+            // calculate angle and distance traveled from wheel speeds
             distanceTravelled = (wheelDistanceL + wheelDistanceR) / 2; // distance calculated is the average of the wheel distances
             angleTravelled = (wheelDistanceR - wheelDistanceL) / (2 * robotRadius);
 
