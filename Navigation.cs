@@ -435,23 +435,23 @@ namespace DrRobot.JaguarControl
             // Make sure t stays between pi and -pi
 
             // Update the actual
-            Console.WriteLine("t is " + t + " angleTravelled is " + angleTravelled +" add "+ (t+ angleTravelled)+ " normalized add " + normalizeAngle(t + angleTravelled));
-            double newTheta =normalizeAngle( t + angleTravelled/2);
-            double deltaX = distanceTravelled* Math.Cos(newTheta);
-            double deltaY = distanceTravelled * Math.Sin(newTheta);
+            Console.WriteLine("t is " + t + " angleTravelled is " + angleTravelled +" add "+ (t+ angleTravelled)+ " normalized add " + normalizeAngle(t + angleTravelled,angleTravelled));
+            double newTheta = normalizeAngle(t + angleTravelled / 2,  angleTravelled/2); // rotation is negative if angle travled is counterclockwise vice versa
+            double deltaX = distanceTravelled* Math.Cos(newTheta); //deltaX is the x component of robot motion
+            double deltaY = distanceTravelled * Math.Sin(newTheta);//deltaY is the y component of robot motion
             x = 0;//x + deltaX;
             y = 0;//y + deltaY;
-            t = normalizeAngle(t + angleTravelled);
+            t = normalizeAngle(t + angleTravelled, angleTravelled);
             
             
             // ****************** Additional Student Code: End   ************
         }
-        public double normalizeAngle(double angle)
+        public double normalizeAngle(double angle, double rotationDirection)
             //makes input angle between negative pi and pi
         {
             if (angle < 0)
             {
-                return -Math.Abs(angle) % (Math.PI) + -Math.PI;
+                return -Math.Abs(angle) % (Math.PI);
             }
             else if (angle == 0)
             {
