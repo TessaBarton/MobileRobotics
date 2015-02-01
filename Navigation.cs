@@ -446,28 +446,30 @@ namespace DrRobot.JaguarControl
             
             // ****************** Additional Student Code: End   ************
         }
-        public double normalizeAngle(double angle, double rotationDirection, double oldTheta){
-            //makes input angle between negative pi and pi
-            bool CLOCKWISE = (rotationDirection>0) ? false: true;//
-            
+        public double normalizeAngle(double angle, double rotationDirection, double oldTheta)
         {
-            if ((angle < 0) && !CLOCKWISE && (oldTheta >0) // if we have been roating counterclockwise and 
-            {
-                return (-Math.Abs(angle) % (Math.PI))-Math.PI;
-            }
-            else if (angle == 0)
-            {
-                return angle;
-            }
-            else if (angle > 0)
-            {
-                return angle % (Math.PI);
-            }
-            else
-            {
-                return 0;
-            }
+            //makes input angle between negative pi and pi
+            bool CLOCKWISE = (rotationDirection > 0) ? false : true;//
 
+            {
+                if ((angle > Math.PI) && !CLOCKWISE && (oldTheta > 0)) // if we have been roating counterclockwise and transition below pi 
+                {
+                    return ((angle) % (Math.PI)) - Math.PI;
+                }
+                else if ((Math.Abs(angle) > Math.Abs(oldTheta)) && !CLOCKWISE && (angle < 0)) // cross zero going counterclockwise
+                {
+                    return angle + Math.PI;
+                }
+                else if (CLOCKWISE && (Math.Abs(angle) > Math.PI) && (oldTheta < 0)) // switch to positive angle if transitioning clockwise over pi
+                {
+                    return (angle % (Math.PI));
+                }
+                else
+                {
+                    return angle;
+                }
+
+            }
         }
 
 
