@@ -436,7 +436,7 @@ namespace DrRobot.JaguarControl
 
             // Update the actual
             Console.WriteLine("t is " + t + " angleTravelled is " + angleTravelled +" add "+ (t+ angleTravelled)+ " normalized add " + normalizeAngle(t + angleTravelled));
-            double newTheta = normalizeAngle(t + angleTravelled/2);
+            double newTheta =normalizeAngle( t + angleTravelled/2);
             double deltaX = distanceTravelled* Math.Cos(newTheta);
             double deltaY = distanceTravelled * Math.Sin(newTheta);
             x = 0;//x + deltaX;
@@ -451,12 +451,18 @@ namespace DrRobot.JaguarControl
         {
             if (angle < 0)
             {
-                return -Math.Abs(angle) % (Math.PI);
+                return -Math.Abs(angle) % (Math.PI) + -Math.PI;
             }
-            else if(angle> 0 )
+            else if (angle == 0)
             {
-                return angle% (Math.PI);
-            }else{
+                return angle;
+            }
+            else if (angle > 0)
+            {
+                return angle % (Math.PI);
+            }
+            else
+            {
                 return 0;
             }
 
