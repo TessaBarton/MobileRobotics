@@ -411,12 +411,10 @@ namespace DrRobot.JaguarControl
             //    diffEncoderPulseL = (encoderMax - lastEncoderPulseL + 1) + currentEncoderPulseL;
             //}
             if (currentEncoderPulseR >= encoderMax)
-            {
-                diffEncoderPulseR = (encoderMax - lastEncoderPulseR + 1) + currentEncoderPulseR;
+            { diffEncoderPulseR = (encoderMax - lastEncoderPulseR + 1) + currentEncoderPulseR;
             }
-            else if ((currentEncoderPulseR<0) && (currentEncoderPulseR >lastEncoderPulseR))
-            {
-                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));
+            else if ((currentEncoderPulseR<0) && ((currentEncoderPulseR >lastEncoderPulseR)|(lastEncoderPulseR == 0)))
+            { diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));
             }
             else { diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR; }// encoder ranges from 0 to 32,767 (encoderMax)
 
@@ -424,7 +422,7 @@ namespace DrRobot.JaguarControl
             {
                 diffEncoderPulseL = (encoderMax - lastEncoderPulseL + 1) + currentEncoderPulseL;
             }
-            else if ((currentEncoderPulseL < 0) && (currentEncoderPulseL > lastEncoderPulseL))
+            else if ((currentEncoderPulseL < 0) && ((currentEncoderPulseR > lastEncoderPulseR) | (lastEncoderPulseR == 0)))
             {
                 diffEncoderPulseL = -(lastEncoderPulseL + (encoderMax - currentEncoderPulseL));
             }
