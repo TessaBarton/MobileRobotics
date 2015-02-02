@@ -405,11 +405,9 @@ namespace DrRobot.JaguarControl
             }
             else if (lastEncoderPulseR ==0 && currentEncoderPulseR>20000)// if we are at 0 and drive backwards
             {
-                Console.WriteLine("case 1");
                 diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));
             }else if((currentEncoderPulseR> lastEncoderPulseR) && (Math.Abs(currentEncoderPulseR-lastEncoderPulseR) > 10000))
             {
-                Console.WriteLine("case 2");
                 diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));}
             else {
                 diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR;
