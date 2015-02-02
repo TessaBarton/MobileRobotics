@@ -400,26 +400,47 @@ namespace DrRobot.JaguarControl
             // Put code here to calculated distanceTravelled and angleTravelled.
             // You can set and use variables like diffEncoder1, currentEncoderPulse1,
             // wheelDistanceL, wheelRadius, encoderResolution etc. These are defined
-            if ((currentEncoderPulseR + lastEncoderPulseR) >= encoderMax)
-            { 
-                diffEncoderPulseR = (encoderMax - lastEncoderPulseR +1) + currentEncoderPulseR;
-            }
-            else{ diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR;}// encoder ranges from 0 to 32,767 (encoderMax)
-
-            if ((currentEncoderPulseL + lastEncoderPulseL) >= encoderMax)
+            //if (currentEncoderPulseR >= lastEncoderPulseR)
+            //{
+            //    diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR;// encoder ranges from 0 to 32,767 (encoderMax)
+            //    diffEncoderPulseL = currentEncoderPulseL - lastEncoderPulseL;
+            //}
+            //else
+            //{
+            //    diffEncoderPulseR = (encoderMax - lastEncoderPulseR + 1) + currentEncoderPulseR; //test later
+            //    diffEncoderPulseL = (encoderMax - lastEncoderPulseL + 1) + currentEncoderPulseL;
+            //}
+            if (currentEncoderPulseR >= encoderMax)
             {
-                diffEncoderPulseL = (encoderMax - lastEncoderPulseL +1) + currentEncoderPulseL;
+                diffEncoderPulseR = (encoderMax - lastEncoderPulseR + 1) + currentEncoderPulseR;
             }
-            else{ diffEncoderPulseL = currentEncoderPulseL- lastEncoderPulseL;}
+            else if ((currentEncoderPulseR<0) && (currentEncoderPulseR >lastEncoderPulseR))
+            {
+                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));
+            }
+            else { diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR; }// encoder ranges from 0 to 32,767 (encoderMax)
+
+            if (currentEncoderPulseL >= encoderMax)
+            {
+                diffEncoderPulseL = (encoderMax - lastEncoderPulseL + 1) + currentEncoderPulseL;
+            }
+            else if ((currentEncoderPulseL < 0) && (currentEncoderPulseL > lastEncoderPulseL))
+            {
+                diffEncoderPulseL = -(lastEncoderPulseL + (encoderMax - currentEncoderPulseL));
+            }
+            else { diffEncoderPulseL = currentEncoderPulseL - lastEncoderPulseL; }
             // update last encoder measurements
             lastEncoderPulseR = currentEncoderPulseR;
             lastEncoderPulseL = currentEncoderPulseL;
             //calculate distance traveled by wheels
-            wheelDistanceR = wheelRadius *(diffEncoderPulseR * ((2 * Math.PI) / 190)) ;
-            wheelDistanceL = wheelRadius * (diffEncoderPulseL * ((2 * Math.PI) / 190));
+            double angleTraveledR = diffEncoderPulseR * ((2 * Math.PI) / 190);
+            double angleTraveledL = diffEncoderPulseL * ((2 * Math.PI) / 190);
+            wheelDistanceR = wheelRadius * angleTraveledR;
+            wheelDistanceL = wheelRadius * angleTraveledL;
             // calculate angle and distance traveled from wheel speeds
             distanceTravelled = (wheelDistanceL + wheelDistanceR) / 2; // distance calculated is the average of the wheel distances
             angleTravelled = (wheelDistanceR - wheelDistanceL) / (2 * robotRadius);
+ 
             Console.WriteLine("DPulseL, DPulseR " + diffEncoderPulseL + ", " + diffEncoderPulseR + " WDL, WDR " + wheelDistanceL + ", " + wheelDistanceR + "A.T. " + angleTravelled);
             // ****************** Additional Student Code: End   ************
         }
@@ -440,8 +461,8 @@ namespace DrRobot.JaguarControl
             double newTheta = normalizeAngle(t + angleTravelled / 2,  angleTravelled/2,t); // rotation is negative if angle travled is counterclockwise vice versa
             double deltaX = distanceTravelled* Math.Cos(newTheta); //deltaX is the x component of robot motion
             double deltaY = distanceTravelled * Math.Sin(newTheta);//deltaY is the y component of robot motion
-            x = 0;// x + deltaX;
-            y = 0;// y + deltaY;
+            x = x+deltaX;
+            y =y+deltaY;
             t = normalizeAngle(t + angleTravelled, angleTravelled,t);
             
             
