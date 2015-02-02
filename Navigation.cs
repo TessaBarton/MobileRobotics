@@ -439,8 +439,8 @@ namespace DrRobot.JaguarControl
             double newTheta = normalizeAngle(t + angleTravelled / 2,  angleTravelled/2,t); // rotation is negative if angle travled is counterclockwise vice versa
             double deltaX = distanceTravelled* Math.Cos(newTheta); //deltaX is the x component of robot motion
             double deltaY = distanceTravelled * Math.Sin(newTheta);//deltaY is the y component of robot motion
-            x = 0;//x + deltaX;
-            y = 0;//y + deltaY;
+            x =0;// x + deltaX;
+            y = 0;// y + deltaY;
             t = normalizeAngle(t + angleTravelled, angleTravelled,t);
             
             
@@ -460,9 +460,13 @@ namespace DrRobot.JaguarControl
                 {
                     return angle + Math.PI;
                 }
-                else if (CLOCKWISE && (Math.Abs(angle) > Math.PI) && (oldTheta < 0)) // switch to positive angle if transitioning clockwise over pi
+                else if ((Math.Abs(angle) > Math.PI) && CLOCKWISE && (oldTheta < 0)) // switch to positive angle if transitioning clockwise over pi
                 {
-                    return (angle % (Math.PI));
+                    return (Math.PI - (Math.Abs(angle) % (Math.PI)));
+                }
+                else if ((Math.Abs(angle) > Math.PI) && CLOCKWISE && (oldTheta >= 0))
+                {
+                    return angle % (Math.PI);
                 }
                 else
                 {
