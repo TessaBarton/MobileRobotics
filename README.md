@@ -17,3 +17,4 @@ code on your own Jaguar, you need to set up the wireless connection (email me).
 Compile in Visual Studio and then run, you can move the imaginary robot (if not in hardware mode) around the GUI pane using the left and right 
 trackpads, the robot doesn't pick up on speeds less than appx 20. 
 Control loop in JaguarControl is called pretty much continuously so any autonomization functions 
+## TODO: add install directions
