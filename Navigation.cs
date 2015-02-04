@@ -400,36 +400,33 @@ namespace DrRobot.JaguarControl
             // Put code here to calculated distanceTravelled and angleTravelled.
             // You can set and use variables like diffEncoder1, currentEncoderPulse1,
             // wheelDistanceL, wheelRadius, encoderResolution etc. These are defined
-            if (currentEncoderPulseR >= encoderMax)
-            { diffEncoderPulseR = (encoderMax - lastEncoderPulseR + 1) + (encoderMax -currentEncoderPulseR);
+            if ((lastEncoderPulseR - currentEncoderPulseR) > 16000){ // rollover 0 case 
+                diffEncoderPulseR = currentEncoderPulseR + (encoderMax - lastEncoderPulseR);
             }
-            else if (lastEncoderPulseR ==0 && currentEncoderPulseR>20000)// if we are at 0 and drive backwards
+            else if ((lastEncoderPulseR - currentEncoderPulseR) < -16000) // rollover 32000 c
             {
-                Console.WriteLine("case 1");
-                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));
-            }else if((currentEncoderPulseR> lastEncoderPulseR) && (Math.Abs(currentEncoderPulseR-lastEncoderPulseR) > 10000))
-            {
-                Console.WriteLine("case 2");
-                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));}
-            else {
+                diffEncoderPulseR = lastEncoderPulseR + (encoderMax - currentEncoderPulseR);
+                
+            } else {
                 diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR;
             }// encoder ranges from 0 to 32,767 (encoderMax)
-
-            if (currentEncoderPulseL >= encoderMax)
+            if ((lastEncoderPulseL - currentEncoderPulseL) > 16000)
             {
-                diffEncoderPulseL = (encoderMax - lastEncoderPulseL + 1) + (encoderMax - currentEncoderPulseL);
+                diffEncoderPulseL = currentEncoderPulseL + (encoderMax - lastEncoderPulseL);
             }
-            else if (lastEncoderPulseL ==0 && currentEncoderPulseL>20000)// if we are at 0 and drive backwards
+            else if ((lastEncoderPulseL - currentEncoderPulseL) < -16000) // if we are at 0 and drive backwards
             {
-                diffEncoderPulseL = -(lastEncoderPulseL + (encoderMax-currentEncoderPulseL));
-            }else if((currentEncoderPulseL> lastEncoderPulseL) && (Math.Abs(currentEncoderPulseL-lastEncoderPulseL) > 10000))
-            { 
-                diffEncoderPulseL = -(lastEncoderPulseL + (encoderMax-currentEncoderPulseL));}
-           // else if ((currentEncoderPulseL < 0) && ((currentEncoderPulseR > lastEncoderPulseR) | (lastEncoderPulseR == 0)))
-           // {
-           //     diffEncoderPulseL = -(lastEncoderPulseL + (encoderMax - currentEncoderPulseL));
-           // }
-            else { diffEncoderPulseL = currentEncoderPulseL - lastEncoderPulseL; }
+                diffEncoderPulseL = lastEncoderPulseL + (encoderMax - currentEncoderPulseL);
+                
+            }
+            else
+            {
+                diffEncoderPulseL = currentEncoderPulseL - lastEncoderPulseL;
+            }
+
+
+
+
             // update last encoder measurements
             lastEncoderPulseR = currentEncoderPulseR;
             lastEncoderPulseL = currentEncoderPulseL;
