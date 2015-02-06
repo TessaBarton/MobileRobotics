@@ -877,7 +877,7 @@ namespace DrRobot.JaguarControl
             int turnVel = 0;
             if ((!protectMotorTemp) && (!protectMotorStuck))
             {
-                turnVel = (MOTDIR * trackBarTurnPower.Value);
+                turnVel = (MOTDIR * trackBarTurnPower.Value);// changed to 100
                 turnVel = Math.Min(100, Math.Max(-100, turnVel));
             }
             else
@@ -886,7 +886,9 @@ namespace DrRobot.JaguarControl
             if (Simulating())
                 simulatedJaguar.DcMotorVelocityNonTimeCtrAll(0, 0, 0, (short)turnVel, (short)turnVel, 0);
             else
-                realJaguar.DcMotorVelocityNonTimeCtrAll(0, 0, 0, (short)turnVel, (short)turnVel, 0);
+                //realJaguar.DcMotorVelocityNonTimeCtrAll(0, 0, 0, (short)turnVel, (short)turnVel, 0);
+                Console.WriteLine(turnVel.ToString());
+                realJaguar.DcMotorPwmNonTimeCtrAll(0, 0, 0, (short)turnVel, (short)(turnVel), 0);
         }
 
 
@@ -1179,6 +1181,11 @@ namespace DrRobot.JaguarControl
         }
 
         # endregion
+
+        private void trackBarTurnPower_Scroll(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }

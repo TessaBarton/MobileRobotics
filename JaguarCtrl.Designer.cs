@@ -749,6 +749,7 @@
             this.trackBarTurnPower.Size = new System.Drawing.Size(200, 45);
             this.trackBarTurnPower.TabIndex = 18;
             this.trackBarTurnPower.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarTurnPower.Scroll += new System.EventHandler(this.trackBarTurnPower_Scroll);
             this.trackBarTurnPower.ValueChanged += new System.EventHandler(this.trackBarTurnPower_ValueChanged);
             // 
             // trackBarForwardPower

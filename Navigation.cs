@@ -34,7 +34,7 @@ namespace DrRobot.JaguarControl
         public bool loggingOn;
         StreamWriter logFile;
         public int deltaT = 50;
-        private static int encoderMax = 32767;
+        private static int encoderMax = 32767;// changed from 32767
         public int pulsesPerRotation = 190;
         public double wheelRadius = 0.089;
         public double robotRadius = 0.242;//0.232
@@ -261,7 +261,8 @@ namespace DrRobot.JaguarControl
             if (jaguarControl.Simulating())
                 simulatedJaguar.DcMotorVelocityNonTimeCtrAll(0, 0, 0, motorSignalL, (short)(-motorSignalR), 0);
             else
-                jaguarControl.realJaguar.DcMotorVelocityNonTimeCtrAll(0, 0, 0, motorSignalL, (short)(-motorSignalR), 0);
+                jaguarControl.realJaguar.DcMotorVelocityNonTimeCtrAll(0, 0, 0, motorSignalL, (short)(-motorSignalR), 0);//put in minus sign
+            
         }
         #endregion
 
@@ -405,10 +406,9 @@ namespace DrRobot.JaguarControl
             }
             else if ((lastEncoderPulseR - currentEncoderPulseR) < -16000) // rollover 32000 c
             {
-                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax - currentEncoderPulseR));
-            }
-            else
-            {
+                diffEncoderPulseR = lastEncoderPulseR + (encoderMax - currentEncoderPulseR);
+                
+            } else {
                 diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR;
             }// encoder ranges from 0 to 32,767 (encoderMax)
             if ((lastEncoderPulseL - currentEncoderPulseL) > 16000)
@@ -434,13 +434,13 @@ namespace DrRobot.JaguarControl
             //calculate distance traveled by wheels
             double angleTraveledR = diffEncoderPulseR * ((2 * Math.PI) / 190);
             double angleTraveledL = diffEncoderPulseL * ((2 * Math.PI) / 190);
-            wheelDistanceR = wheelRadius * angleTraveledR;
+            wheelDistanceR = wheelRadius * -angleTraveledR; //changed to minus sign
             wheelDistanceL = wheelRadius * angleTraveledL;
             // calculate angle and distance traveled from wheel speeds
             distanceTravelled = (wheelDistanceL + wheelDistanceR) / 2; // distance calculated is the average of the wheel distances
             angleTravelled = (wheelDistanceR - wheelDistanceL) / (2 * robotRadius);
  
-           Console.WriteLine("DPulseL, DPulseR " + diffEncoderPulseL + ", " + diffEncoderPulseR + " WDL, WDR " + wheelDistanceL + ", " + wheelDistanceR + "A.T. " + angleTravelled);
+          // Console.WriteLine("DPulseL, DPulseR " + diffEncoderPulseL + ", " + diffEncoderPulseR + " WDL, WDR " + wheelDistanceL + ", " + wheelDistanceR + "A.T. " + angleTravelled);
             // ****************** Additional Student Code: End   ************
         }
 
