@@ -405,12 +405,10 @@ namespace DrRobot.JaguarControl
             }
             else if ((lastEncoderPulseR - currentEncoderPulseR) < -16000) // rollover 32000 c
             {
-                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));
-            }else if((currentEncoderPulseR> lastEncoderPulseR) && (Math.Abs(currentEncoderPulseR-lastEncoderPulseR) > 10000))
+                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax - currentEncoderPulseR));
+            }
+            else
             {
-                diffEncoderPulseR = -(lastEncoderPulseR + (encoderMax-currentEncoderPulseR));}
-            else {
-
                 diffEncoderPulseR = currentEncoderPulseR - lastEncoderPulseR;
             }// encoder ranges from 0 to 32,767 (encoderMax)
             if ((lastEncoderPulseL - currentEncoderPulseL) > 16000)

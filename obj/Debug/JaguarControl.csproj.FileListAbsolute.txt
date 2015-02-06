@@ -20,3 +20,11 @@ C:\Program Files (x86)\Dr Robot Inc\Dr Robot Jaguar Control\sourcecode\obj\Debug
 C:\Program Files (x86)\Dr Robot Inc\Dr Robot Jaguar Control\sourcecode\obj\Debug\ResGen.write.1.tlog
 C:\Program Files (x86)\Dr Robot Inc\Dr Robot Jaguar Control\sourcecode\obj\Debug\JaguarControl.exe
 C:\Program Files (x86)\Dr Robot Inc\Dr Robot Jaguar Control\sourcecode\obj\Debug\JaguarControl.pdb
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\Interop.AXISMEDIACONTROLLib.dll
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\Interop.DRROBOTSentinelCONTROLLib.dll
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\Interop.EARTHLib.dll
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\AxInterop.AXISMEDIACONTROLLib.dll
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\AxInterop.DRROBOTSentinelCONTROLLib.dll
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\JaguarControl.csproj.ResolveComReference.cache
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\JaguarControl.exe
+C:\Users\HMC\Desktop\OchengTbarton_190\obj\Debug\JaguarControl.pdb
